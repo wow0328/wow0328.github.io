@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SunPlant</title>
+    <script src="https://kit.fontawesome.com/a78cf262ec.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="reset.css">
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        #menu-switch,
+        #home-switch,
+        #shop-switch,
+        #featured-switch,
+        #pages-switch,
+        #element-switch,
+        #close-switch {
+            position: absolute;
+        }
+
+        .hb {
+            width: 35px;
+            height: 35px;
+            background-color: black;
+            position: relative;
+            margin: auto;
+        }
+
+        .hb span {
+            height: 2px;
+            width: 60%;
+            background-color: #fff;
+            position: absolute;
+            left: 10%;
+        }
+
+        .hb span:nth-child(2) {
+            width: 30%;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            opacity: 1;
+            transition: 1s 2s;
+        }
+
+        .hb span:nth-child(1) {
+            top: 10px;
+            transform: rotate(0deg);
+            transition: top 1s 2s, transform 1s 1s;
+        }
+
+        .hb span:nth-child(3) {
+            bottom: 10px;
+            transform: rotate(0deg);
+            transition: bottom 1s 2s, transform 1s 1s;
+        }
+
+        .inner-header {
+            display: flex;
+        }
+
+        .header-a {
+            display: flex;
+            background-color: black;
+            width: 150px;
+            color: white;
+        }
+
+        .top-menu {
+            margin: auto;
+            margin-left: -20px;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        .login {
+            display: flex;
+            color: black;
+            border-bottom: 1px solid #ccc;
+            width: 150px;
+            text-decoration: none;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+
+        }
+
+        .login i {
+            margin-right: 10px;
+            font-size: 22px;
+            font-variant: normal;
+        }
+
+        .login p {
+            font-size: 14px;
+        }
+
+        .menu-container {
+            width: 300px;
+            height: 100%;
+            border: 1px solid;
+            position: relative;
+        }
+
+        .menu-container div {
+            margin: 20px 10px;
+        }
+
+        .menu-container a {
+            font-size: 16px;
+            width: calc(100% - 20px);
+            font-weight: 400;
+            height: 50px;
+            color: #333;
+            display: inline-block;
+            transition: .5s;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .new-container-f {
+            background-color: #48c8fd;
+            position: relative;
+            color: white;
+            top: -15px;
+            left: 47%;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 10px;
+            line-height: 16px;
+        }
+
+        .new-container-f ::after {
+            border-color: #48c8fd transparent transparent;
+            border-style: solid solid solid solid;
+
+            /* 設定邊框大小可拼湊出任意形狀的三角形 */
+            border-width: 4px 5px 0px 1px;
+
+            bottom: 10px;
+
+            /* 必須指定，才能顯示內容 */
+            content: "";
+
+            height: 0px;
+
+
+            /* 必須指定，否則會變梯形 */
+            position: absolute;
+            left: 12px;
+            /* left: 20px; */
+            top: 17px;
+            width: 0px;
+        }
+
+        .new-container-e {
+            background-color: #48c8fd;
+            position: relative;
+            color: white;
+            top: -15px;
+            left: 51%;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 10px;
+            line-height: 16px;
+        }
+
+        .new-container-e ::after {
+            border-color: #48c8fd transparent transparent;
+            border-style: solid solid solid solid;
+
+            /* 設定邊框大小可拼湊出任意形狀的三角形 */
+            border-width: 4px 5px 0px 1px;
+
+            bottom: 10px;
+
+            /* 必須指定，才能顯示內容 */
+            content: "";
+
+            height: 0px;
+
+
+            /* 必須指定，否則會變梯形 */
+            position: absolute;
+            left: 12px;
+            /* left: 20px; */
+            top: 17px;
+            width: 0px;
+        }
+
+        #home-switch:checked~.main-header .menu-container .home-container label i {
+            transform: scale(-1);
+            color: #518432;
+        }
+
+        #shop-switch:checked~.main-header .menu-container .shop-container label i {
+            transform: scale(-1);
+            color: #518432;
+        }
+
+        #featured-switch:checked~.main-header .menu-container .featured-container label i {
+            transform: scale(-1);
+            color: #518432;
+        }
+
+        #pages-switch:checked~.main-header .menu-container .pages-container label i {
+            transform: scale(-1);
+            color: #518432;
+        }
+
+        #element-switch:checked~.main-header .menu-container .element-container label i {
+            transform: scale(-1);
+            color: #518432;
+        }
+
+        .home-container h2 a {
+            font-size: 14px;
+            margin-left: 10px;
+            display: none;
+        }
+
+        #home-switch:checked~.main-header .menu-container .home-container h2 a {
+            display: block;
+        }
+
+        .shop-container {
+            position: relative;
+        }
+
+        .shop-filter-container h2 a {
+            font-weight: 550;
+            margin: 0px 0 -20px 10px;
+        }
+
+        .shop-h2 {
+            margin-top: -15px;
+        }
+
+        .shop-filter-container h2,
+        .featured-container h2 {
+            display: flex;
+            font-weight: bolder;
+            font-size: 15px;
+            position: relative;
+        }
+
+        .shop-h2::after {
+            content: '';
+            width: 100px;
+            border-bottom: 1px solid #518432;
+            margin-left: -240px;
+        }
+
+        .shop-h2-layout::after {
+            content: '';
+            width: 100px;
+            border-bottom: 1px solid #518432;
+            margin-left: -240px;
+        }
+
+        .shop-filter-container li a {
+            font-size: 14px;
+            height: 0;
+            margin-left: 11px;
+            padding: 10px 0;
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+
+
+        .new-red {
+            background-color: #ef3e3e;
+            color: white;
+            position: relative;
+            margin-left: -5px;
+            height: 15px;
+            width: 100px;
+            padding: 0 6px;
+            top: -15px;
+            left: -19px;
+            font-size: 12px;
+            font-weight: bolder;
+            text-decoration: none;
+        }
+
+        .new-red::after {
+            border-color: #ef3e3e transparent transparent;
+            border-style: solid solid solid solid;
+
+            /* 設定邊框大小可拼湊出任意形狀的三角形 */
+            border-width: 5px 5px 0px 1px;
+
+            bottom: 10px;
+
+            /* 必須指定，才能顯示內容 */
+            content: "";
+
+            height: 0px;
+
+
+            /* 必須指定，否則會變梯形 */
+            position: absolute;
+            left: 12px;
+            /* left: 20px; */
+            top: 11px;
+            width: 0px;
+        }
+
+        .shop-container div {
+            display: none;
+        }
+
+        #shop-switch:checked~.main-header .menu-container .shop-container div {
+            display: block;
+        }
+
+        .featured-h2::after {
+            content: '';
+            width: 100px;
+            border-bottom: 1px solid #518432;
+            margin-left: -240px;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="checkbox" name="" id="menu-switch">
+    <input type="checkbox" name="" id="home-switch">
+    <input type="checkbox" name="" id="shop-switch">
+    <input type="checkbox" name="" id="featured-switch">
+    <input type="checkbox" name="" id="pages-switch">
+    <input type="checkbox" name="" id="element-switch">
+
+
+    <header class="main-header">
+        <label for="menu-switch" class="out-side-hb">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
+        <div class="inner-header">
+            <div class="header-a">
+                <div class="hb">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <p class="top-menu">Menu</p>
+            </div>
+
+            <a href="#" class="login">
+                <i class="fa-solid fa-circle-user"></i>
+                <p>Login</p>
+            </a>
+        </div>
+        <div class="menu-container">
+            <div class="home-container">
+                <a href="#">Home</a>
+                <label for="home-switch">
+                    <i class="fa-solid fa-angle-right"></i>
+                </label>
+                <h2><a href="#">Home 1</a></h2>
+                <h2><a href="#">Home 2</a></h2>
+                <h2><a href="#">Home 3</a></h2>
+                <h2><a href="#">Home 4</a></h2>
+                <h2><a href="#">Home 5</a></h2>
+            </div>
+            <div class="shop-container">
+                <a href="#">Shop</a>
+                <label for="shop-switch">
+                    <i class="fa-solid fa-angle-right"></i>
+                </label>
+
+                <div class="shop-filter-container">
+                    <h2 class="shop-h2">
+                        <a href="#">
+                            SHOP FILTER</a>
+                    </h2>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                Filter Push Left
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Filter Colappse
+                            </a>
+                        </li>
+                    </ul>
+                    <h2 class="shop-h2-layout">
+                        <a href="#">SHOP LAYOUT</a>
+                    </h2>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                Full width
+                                <span class="new-red">
+                                    <span>NEW</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Sidebar Left
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Sidebar Right
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Infinity Scroll
+                                <span class="new-red">
+                                    <span>NEW</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Product List
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <div class="featured-container">
+                <a href="#">Featured
+                    <span class="new-container-f">
+                        <span class="new">NEW</span>
+                    </span>
+
+                </a>
+                <label for="featured-switch">
+                    <i class="fa-solid fa-angle-right"></i>
+                </label>
+
+                <div class="featured-inner">
+                    <ul>
+                        <h2 class="featured-h2">
+                            <a href="#">BLOG LAYOUTS</a>
+                        </h2>
+                        <li>
+                            <a href="#">Blog Standar No Sidebar
+                                <span>NEW</span>
+                            </a>
+
+                        </li>
+
+                        <li>
+                            <a href="#">Blog Standar Sidebar Left
+                                <span>HOT</span>
+                            </a>
+
+                        </li>
+
+                        <li><a href="#">
+                                Blog Standar Sidebar Right
+                            </a></li>
+
+                        <li><a href="#">Blog Grid No Sidebar
+                                <span>NEW</span></a>
+                        </li>
+
+                        <li><a href="#">Blog Grid Sidebar</a></li>
+                    </ul>
+
+                    <ul>
+                        <h2><a href="#">PRODUCT LAYOUT</a></h2>
+                        <li>
+                            <a href="#">Product Large Images<span>HOT</span></a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                Product Extended
+                                <span>NEW</span>
+                            </a>
+                        </li>
+
+                        <li><a href="#">Product Gallery</a></li>
+
+                        <li><a href="#">Product Sticky</a></li>
+
+                        <li><a href="#">Product Sidebar</a></li>
+                    </ul>
+
+                    <ul>
+                        <h2>
+                            <a href="#">PRODUCT TYPES</a>
+                        </h2>
+
+                        <li>
+                            <a href="#">Variable
+                                <span>HOT</span>
+                            </a>
+                        </li>
+
+                        <li><a href="#">Video</a></li>
+
+                        <li><a href="#">360 Degree</a></li>
+
+                        <li><a href="#">Affiliate</a></li>
+
+                        <li>
+                            <a href="#">Simple
+                                <span>HOT</span>
+                            </a>
+                        </li>
+
+                        <li><a href="#">Out Of Stock</a></li>
+                    </ul>
+
+                    <ul>
+                        <h2><a href="#">SINGLE POST</a></h2>
+                        <li>
+                            <a href="#">Single Post No Sidebar</a>
+                        </li>
+                        <li><a href="#">Single Post Sidebar Right</a></li>
+                        <li><a href="#">Single Post Sidebar Left</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pages-container">
+                <a href="#">Pages</a>
+                <label for="pages-switch">
+                    <i class="fa-solid fa-angle-right"></i>
+                </label>
+            </div>
+            <div class="element-container">
+                <a href="#">Element
+                    <span class="new-container-e">
+                        <span>NEW</span>
+                    </span>
+                </a>
+                <label for="element-switch">
+                    <i class="fa-solid fa-angle-right"></i>
+                </label>
+            </div>
+
+            <label for="checkbox" id="close-switch">
+                <i class="fa-solid fa-xmark"></i>
+                <span>Close</span>
+            </label>
+        </div>
+
+        <div class="logo">
+            <a href="https://sunplant-store-demo.myshopify.com/">
+                <img src="https://cdn.shopify.com/s/files/1/0356/8343/4555/files/logo.png?v=1585540695" alt="logo">
+            </a>
+        </div>
+
+        <div class="search-login-cart">
+            <a href="#">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </a>
+
+            <a href="#"><i class="fa-solid fa-circle-user"></i></a>
+
+            <a href="#"><i class="fa-solid fa-basket-shopping"></i></a>
+        </div>
+    </header>
+</body>
+
+</html>
