@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-    
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        body {
+        *{
             margin: 0;
             padding: 0;
+            font-family: lnK FREE;
+        }
+        body {
+            width: 40%;
+            margin: 0 auto;
+             border: 2px solid;
         }
 
         .wrap {
-            width: 90%;
-            border: 1px solid;
             margin: 0 auto;
-
         }
 
         .header {
@@ -37,8 +40,12 @@
             vertical-align: bottom;
         }
 
-        ul{
+        ul {
             font-size: 32px;
+        }
+
+        li {
+            text-decoration: none;
         }
     </style>
 
@@ -46,7 +53,7 @@
 
 <body>
 
-    <div class="wrap">
+    <table class="wrap">
         <div class="image-box"><img class="header" src="" alt=""></div>
         <ul>
             <h6 class="name"></h6>
@@ -60,7 +67,7 @@
             <div class="image-box"> <img class="fo-image" src="" alt="">
             </div>
         </div>
-    </div>
+    </table>
 
     <script>
         let pic = "https://i.pinimg.com/originals/8f/3f/95/8f3f95a61b4359d8d477cb03a30c9bbc.png";
