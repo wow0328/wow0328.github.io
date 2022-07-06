@@ -13,6 +13,9 @@
             font-family: sans-serif;
         }
 
+
+
+
         #menu-switch,
         #home-switch,
         #shop-switch,
@@ -100,11 +103,34 @@
             font-size: 14px;
         }
 
+        .menu-background {
+            background-color: #000000c4;
+            z-index: 4;
+            top: 0px;
+            left: 0;
+            position: fixed;
+            overflow: auto;
+            overflow-x: auto;
+            overflow-y: auto;
+            width: 100vw;
+            height: 100vh;
+            /* opacity: 0; */
+            visibility: hidden;
+        }
+
+
         .menu-container {
-            width: 300px;
-            height: 100%;
+            width: 25%;
+            height: calc(100% - 100px);
             border: 1px solid;
             position: relative;
+            overflow-y: auto;
+        }
+
+        .menu-container li,
+        .home-container h2 a {
+            padding: 6px 0px 6px 15px;
+            line-height: 24px;
         }
 
         .menu-container div {
@@ -115,7 +141,6 @@
             font-size: 16px;
             width: calc(100% - 20px);
             font-weight: 400;
-            height: 50px;
             color: #333;
             display: inline-block;
             transition: .5s;
@@ -232,44 +257,39 @@
             position: relative;
         }
 
-        .shop-filter-container h2 a {
+        .shop-inner h2 a {
             font-weight: 550;
-            margin: 0px 0 -20px 10px;
+            margin-bottom: 10px;
         }
 
-        .shop-h2 {
-            margin-top: -15px;
-        }
 
-        .shop-filter-container h2,
-        .featured-container h2 {
+        .shop-inner h2 {
             display: flex;
             font-weight: bolder;
             font-size: 15px;
             position: relative;
+            box-sizing: border-box;
+            flex-direction: column;
         }
 
         .shop-h2::after {
             content: '';
-            width: 100px;
+            width: 50px;
             border-bottom: 1px solid #518432;
-            margin-left: -240px;
         }
 
         .shop-h2-layout::after {
             content: '';
-            width: 100px;
+            width: 50px;
             border-bottom: 1px solid #518432;
-            margin-left: -240px;
         }
 
-        .shop-filter-container li a {
+        .shop-h2-layout {
+            margin-top: 15px;
+        }
+
+        .shop-inner li a {
             font-size: 14px;
-            height: 0;
-            margin-left: 11px;
-            padding: 10px 0;
-            margin-top: 5px;
-            margin-bottom: 20px;
         }
 
 
@@ -277,12 +297,12 @@
             background-color: #ef3e3e;
             color: white;
             position: relative;
-            margin-left: -5px;
+            /* margin-left: -5px; */
             height: 15px;
             width: 100px;
             padding: 0 6px;
             top: -15px;
-            left: -19px;
+            left: -15%;
             font-size: 12px;
             font-weight: bolder;
             text-decoration: none;
@@ -319,11 +339,70 @@
             display: block;
         }
 
+        .featured-container h2>a {
+            font-weight: 550;
+            margin-bottom: 10px;
+        }
+
+
+        .featured-inner h2 {
+            display: flex;
+            font-weight: bolder;
+            font-size: 15px;
+            position: relative;
+            box-sizing: border-box;
+            flex-direction: column;
+        }
+
+
         .featured-h2::after {
             content: '';
-            width: 100px;
+            width: 50px;
             border-bottom: 1px solid #518432;
-            margin-left: -240px;
+
+        }
+
+        /* .featured-container li{
+            padding: 6px 0px 6px 15px;
+            line-height: 24px;
+        } */
+
+        .featured-container li a {
+            font-size: 14px;
+        }
+
+        .new-container-featured-inner {
+            background-color: #48c8fd;
+            position: relative;
+            color: white;
+            top: -40px;
+            left: 80%;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 0px 6px;
+        }
+
+        .new-container-featured-inner::after {
+            border-color: #48c8fd transparent transparent;
+            border-style: solid solid solid solid;
+
+            /* 設定邊框大小可拼湊出任意形狀的三角形 */
+            border-width: 4px 5px 0px 1px;
+
+            bottom: 10px;
+
+            /* 必須指定，才能顯示內容 */
+            content: "";
+
+            height: 0px;
+
+
+            /* 必須指定，否則會變梯形 */
+            position: absolute;
+            left: 12px;
+            /* left: 20px; */
+            top: 12px;
+            width: 0px;
         }
     </style>
 </head>
@@ -344,6 +423,8 @@
             <span></span>
         </label>
 
+
+        <div class="menu-background"></div>
         <div class="inner-header">
             <div class="header-a">
                 <div class="hb">
@@ -377,10 +458,9 @@
                     <i class="fa-solid fa-angle-right"></i>
                 </label>
 
-                <div class="shop-filter-container">
+                <div class="shop-inner">
                     <h2 class="shop-h2">
-                        <a href="#">
-                            SHOP FILTER</a>
+                        <a href="#">SHOP FILTER</a>
                     </h2>
                     <ul>
                         <li>
@@ -445,37 +525,43 @@
                 </label>
 
                 <div class="featured-inner">
+                    <h2 class="featured-h2">
+                        <a href="#">BLOG LAYOUTS</a>
+                    </h2>
                     <ul>
-                        <h2 class="featured-h2">
-                            <a href="#">BLOG LAYOUTS</a>
-                        </h2>
+
                         <li>
                             <a href="#">Blog Standar No Sidebar
-                                <span>NEW</span>
+                                <span class="new-red">NEW</span>
                             </a>
 
                         </li>
 
                         <li>
                             <a href="#">Blog Standar Sidebar Left
-                                <span>HOT</span>
+                                <span class="new-container-featured-inner">HOT</span>
                             </a>
-
                         </li>
 
-                        <li><a href="#">
+                        <li>
+                            <a href="#">
                                 Blog Standar Sidebar Right
-                            </a></li>
+                            </a>
+                        </li>
 
                         <li><a href="#">Blog Grid No Sidebar
-                                <span>NEW</span></a>
+                                <span class="new-red">NEW</span>
+                            </a>
                         </li>
 
                         <li><a href="#">Blog Grid Sidebar</a></li>
                     </ul>
 
+                    <h2 class="featured-h2">
+                        <a href="#">
+                            PRODUCT LAYOUT</a>
+                    </h2>
                     <ul>
-                        <h2><a href="#">PRODUCT LAYOUT</a></h2>
                         <li>
                             <a href="#">Product Large Images<span>HOT</span></a>
                         </li>
@@ -494,14 +580,14 @@
                         <li><a href="#">Product Sidebar</a></li>
                     </ul>
 
-                    <ul>
-                        <h2>
-                            <a href="#">PRODUCT TYPES</a>
-                        </h2>
+                    <h2 class="featured-h2">
+                        <a href="#">PRODUCT TYPES</a>
+                    </h2>
 
+                    <ul>
                         <li>
                             <a href="#">Variable
-                                <span>HOT</span>
+                                <span class="new-container-featured-inner">HOT</span>
                             </a>
                         </li>
 
@@ -520,8 +606,10 @@
                         <li><a href="#">Out Of Stock</a></li>
                     </ul>
 
+                    <h2 class="featured-h2"><a href="#">
+                            SINGLE POST</a>
+                    </h2>
                     <ul>
-                        <h2><a href="#">SINGLE POST</a></h2>
                         <li>
                             <a href="#">Single Post No Sidebar</a>
                         </li>
@@ -530,28 +618,29 @@
                     </ul>
                 </div>
             </div>
-            <div class="pages-container">
-                <a href="#">Pages</a>
-                <label for="pages-switch">
-                    <i class="fa-solid fa-angle-right"></i>
-                </label>
-            </div>
-            <div class="element-container">
-                <a href="#">Element
-                    <span class="new-container-e">
-                        <span>NEW</span>
-                    </span>
-                </a>
-                <label for="element-switch">
-                    <i class="fa-solid fa-angle-right"></i>
-                </label>
-            </div>
-
-            <label for="checkbox" id="close-switch">
-                <i class="fa-solid fa-xmark"></i>
-                <span>Close</span>
+        </div>
+        <div class="pages-container">
+            <a href="#">Pages</a>
+            <label for="pages-switch">
+                <i class="fa-solid fa-angle-right"></i>
             </label>
         </div>
+        <div class="element-container">
+            <a href="#">Element
+                <span class="new-container-e">
+                    <span>NEW</span>
+                </span>
+            </a>
+            <label for="element-switch">
+                <i class="fa-solid fa-angle-right"></i>
+            </label>
+        </div>
+
+        <label for="checkbox" id="close-switch">
+            <i class="fa-solid fa-xmark"></i>
+            <span>Close</span>
+        </label>
+
 
         <div class="logo">
             <a href="https://sunplant-store-demo.myshopify.com/">
