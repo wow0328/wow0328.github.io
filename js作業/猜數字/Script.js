@@ -30,12 +30,6 @@ showAnswer.onclick = () => {
 }
 
 
-
-
-
-
-
-
 //function
 //產生亂數-1
 function randomGet() {
@@ -46,8 +40,17 @@ function randomGet() {
 
     for (let i = 0; i < 4; i++) {
         let nums = Math.floor(Math.random() * (max - min)) + 1
-        nums.toString()
-        numArr.push(nums)
+        
+        //判斷回傳陣列內的索引值
+        if(numArr.indexOf(nums)<0){
+            numArr.push(nums)
+        }
+        //因為如果有重複的話他會跑下一次回圈
+        //如果不i--就會少跑幾次
+        else{
+            i--
+        }
+       
     }
 
 }
@@ -75,7 +78,8 @@ function ShowArr() {
 function checkAnswer() {
     let a = 0
     let b = 0
-    let inputAnswer = ('' + guessText.value).split('')
+    //讓兩個型別一樣
+    let inputAnswer = ('' + guessText.value).split('').map(x=>parseInt(x))
 
     inputAnswer.forEach((item, index) => {
         if (item == inputAnswer[i]) {

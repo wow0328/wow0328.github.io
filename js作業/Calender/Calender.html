@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Calender</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Fascinate&display=swap" rel="stylesheet">
+
+
+    <style>
+        body {
+            display: grid;
+            font-family: 'Dancing Script', cursive;
+            font-family: 'Fascinate', cursive;
+            place-items: center;
+            background-image: url('https://i.pinimg.com/originals/7c/ff/48/7cff48828ba5589d790e158f594d6961.jpg');
+        }
+
+        .calender {
+            margin: auto;
+            width: 500px;
+            background-color: #D3DAC9;
+            border-radius: 30px;
+            position: relative;
+            padding: 20px;
+        }
+
+        .calender-header {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .year{
+            font-size: 25px;
+        }
+
+        .year-picker {
+            display: flex;
+            align-items: center;
+        }
+
+        .year-changed {
+            width: 200px;
+            border-radius: 50%;
+            place-items: center;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .month-picker {
+            cursor: pointer;
+        }
+
+        .week {
+            display: grid;
+            height: 50px;
+            grid-template-columns: repeat(7, 1fr);
+            font-weight: 600;
+        }
+
+        /* 因為上面的 grid-template-columns排列還是有一些寬間,所以重新設計div */
+        .week div {
+            display: grid;
+            place-items: center;
+        }
+
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            /* gap每個區間寬度 */
+            gap: 2px;
+            font-size: 25px;
+        }
+
+        .days .calender-day {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 8px;
+            position: relative;
+            cursor: pointer;
+            animation: to-top 1s forwards;
+            border-radius: 50%;
+        }
+
+
+        .days div:hover span{
+            width: 50px;
+            height: 50px;
+        }
+
+        .days div:hover{
+            font-size: 35px;
+            color: #75a285;
+        }
+
+        .days div .todo-item{
+            width: 100px;
+            height: 100px;
+            background-color: #fa0;
+            position: absolute;
+            display: none;
+        }
+        .days div:hover .todo-item{
+            display: block;
+            top: 0;
+            left: 50px;
+            z-index: 10;
+        }
+
+        .days div.curr-date{
+            background-color: aliceblue;
+        }
+        .days div.curr-date:hover{
+            background-color: #D3DAC9;
+            border-radius: 50%;
+        }
+
+       
+    </style>
+</head>
+
+<body>
+    <div class="calender">
+        <div class="calender-header">
+            <!-- 年 -->
+            <div class="year-picker">
+                <span class="year-changed" id="pre-year">
+                    <pre><</pre>
+                </span>
+                <span class="year">2022</span>
+                <span class="year-changed" id="nxt-year">
+                    <pre>></pre>
+                </span>
+            </div>
+            <!-- 月 -->
+            <span class="month-picker" id="month-picker">July</span>
+        </div>
+
+
+        <div class="calender-body">
+            <!-- 星期 -->
+            <div class="week">
+                <div>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thru</div>
+                <div>Fri</div>
+                <div>Sat</div>
+            </div>
+            <!-- 日 -->
+            <div class="days"></div>
+        </div>
+        <div class="month_list"></div>
+    </div>
+</body>
+
+<script>
+    //每個月
+    let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    let calender_header_year
+    let days
+    let calender = document.querySelector('.calender')
+    let month_list = document.querySelector('.month_list')
+
+
+
+    //潤月
+    isLeapYear = (year) => {
+        return (year % 4 === 0 && year % 100 !== 0 && year % 400 !== 0) || (year % 100 === 0 && year % 400 === 0)
+    }
+
+    //判斷是否是潤月
+    getFebDays = (year) => {
+        //如果（？）是潤月就是29天,（:）如果不是就是28天
+        return isLeapYear(year) ? 29 : 28
+    }
+
+
+    
+    //產生年月
+    function generateCalender  (month, year)  {
+
+        days = document.querySelector('.days')
+        calender_header_year = document.querySelector('.year')
+
+        //把每個月份的天數列出來
+        let days_of_month = [31, getFebDays(year), 31, 30, 31, 30, 31, 30, 31, 31, 30, 31]
+
+        days.innerHTML = ''
+
+        //抓現在的日期
+        let currDate = new Date()
+
+        //讓currDate去抓每一月和每一年
+        if (!month) month = currDate.getMonth()
+        if (!year) year = currDate.getFullYear()
+
+        //帶入上面的月份
+        let currMonth = `${months[month]}`
+
+        //把月份帶入HTML
+        month_picker.innerHTML = currMonth
+        calender_header_year.innerHTML=year
+
+
+
+        // //計算哪一天是第一天
+        let firstDay = new Date(year, month, 1)
+
+        for (let i = 0; i <= days_of_month[month] + firstDay.getDay() - 1; i++) {
+            let day = document.createElement('div')
+            let tempDay = i - firstDay.getDay() + 1
+            if (i >= firstDay.getDay()) {
+                day.classList.add('calender-day')
+                day.innerHTML = `${tempDay}<span></span>
+                <span></span>
+                <span></span>
+                <span></span>`
+
+                if (tempDay === currDate.getDate() && year === currDate.getFullYear()) {
+                    day.classList.add('curr-date')
+                    //TODO-modal
+                    day.innerHTML += `<div class='todo-item'></div>`
+                }
+            }
+            days.appendChild(day)
+        }
+    }
+
+
+        //秀出每一個月份
+        months.forEach((mth, index) => {
+
+            let month = document.createElement('div')
+            month.innerHTML = `<div data-month='${index}'>${mth}</div>`
+
+            month.querySelector('div').onclick = () => {
+                month_list.classList.remove('show')
+                currMonth.value = index
+
+                generateCalender(index, curr_year.value)
+            }
+            month_list.appendChild(month)
+        })
+
+        //按下月份的按鈕會顯示各個月份
+        let month_picker = document.querySelector('#month-picker')
+
+        month_picker.onclick = () => {
+            month_list.classList.add('show')
+        }
+
+
+        let currDate = new Date()
+
+        let curr_month = { value: currDate.getMonth() }
+        let curr_year = { value: currDate.getFullYear() }
+        generateCalender(curr_month.value, curr_year.value)
+
+
+        document.querySelector('#pre-year').onclick = () => {
+            --curr_year.value
+            generateCalender(curr_month.value, curr_year.value)
+        }
+
+        document.querySelector('#nxt-year').onclick = () => {
+            ++curr_year.value
+            generateCalender(curr_month.value, curr_year.value)
+        }
+
+</script>
+
+</html>
