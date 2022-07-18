@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="reset.css">
+    <style>
+        .box {
+            margin: auto;
+            font-size: 30px;
+            border: 1px solid;
+            width: 400px;
+            height: 40px;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .text-group{
+            text-align: center;
+            margin: 50px 0 0 0;
+        }
+
+        input{
+            height: 20px;
+        }
+
+        #make-number{
+            width: 80px;
+            height: 30px;
+            text-align: center;
+            background-color: rgb(58, 99, 161);
+            color: aliceblue;
+            border: none;
+            border-radius: 5%;
+            margin-bottom: 5px;
+        }
+       
+        .button-arr,
+        .btnarray{
+            width: 170px;
+            margin: 5px auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        button{
+            width: 25%;
+            height: 30px;
+            background-color: black;
+            color: aliceblue;
+            border-radius:10% ;
+            margin: 2px;
+            
+        }
+        #x{
+            color: red;
+        }
+
+        #v{
+            color:#af4;
+        }
+        #answer{
+            background-color: #af4;
+            display: inline-block;
+            padding: 10px;
+            margin-left:300px ;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="box">
+            <p>0~100</p></div>
+        <div class="text-group">
+            <button id="make-number">
+                <p>產生數字</p></button>
+            <br>
+            <input type="text" id="guess-number" placeholder="請輸入一個二位數字" >
+        </div>
+           
+            <div class="button-arr">
+                <button>1</button>
+                <button>2</button>   
+                <button>3</button>   
+                <button>4</button>   
+                <button>5</button>   
+                <button>6</button>   
+                <button>7</button>   
+                <button>8</button>   
+                <button>9</button>   
+            </div>
+            <div class="btnarray">
+                <button id="x" >X</button>   
+                <button id="btn0">0</button>   
+                <button id="v" >V</button>           
+            </div>
+
+            <p id="answer"></p>
+        </div>
+    </div>
+
+    <script src="Script.js">
+     
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="reset.css">
+    <title>Apple</title>
+    <style>
+        #menu-switch{
+            position: absolute;
+        }
+        .logo img{
+            vertical-align: middle;
+        }
+        .main-header{
+            background-color: #ccc;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+        .main-nav a{
+            font-size: 20px;
+            text-decoration: none;
+        }
+        @media screen and (max-width: 767px) {
+            .hb{
+                width: 40px;
+                height: 40px;
+                background-color:#5C636A;
+                position: relative;
+            }
+            .hb span{
+                height: 2px;
+                width: 70%;
+                background-color: #fff;
+                position: absolute;
+                left: 10%;
+            }
+            .hb span:nth-child(2){
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                opacity: 1;
+                transition: 1s 2s;
+            }
+            .hb span:nth-child(1){
+                top: 10px;
+                transform: rotate(0deg);
+                transition: top 1s 2s,transform 1s 1s;
+            }
+            
+            #menu-switch:checked ~ .main-header .hb span:nth-child(2){
+                opacity: 0;
+                transition: 1s;
+            }
+            #menu-switch:checked ~ .main-header .hb span:nth-child(1){
+                top: 19px;
+                transform: rotate(45deg);
+                transition: top 1s 1s,transform 1s 2s;
+            }
+            .main-nav{
+                position: fixed;
+                top: 60px;
+                right: -80%;
+                bottom: 0;
+                background-color: #faa;
+                width: 80%;
+                opacity: 0;
+                transition: 1s;
+            }
+            .main-nav a{
+                display: block;
+                padding: 10px 20px;
+            }
+            .main-nav a + a{
+                border-top: 1px solid #000;
+            }
+            #menu-switch:checked ~ .main-header .main-nav{
+                right: 0;
+                opacity: 1;
+            }
+        }
+        @media screen and (min-width: 768px) {
+            .hb{
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <input type="checkbox" name="" id="menu-switch">
+
+        <nav class="navbar navbar-dark bg-dark d-flex justify-content-between">
+            <label for="menu-switch" class="hb">
+                <span></span>
+                <span></span>
+            </label>
+
+            <nav class="main-nav">
+                <button type="button" class="btn btn-secondary">MAC</button>
+                <button type="button" class="btn btn-secondary">Ipad</button>
+                <button type="button" class="btn btn-secondary">Iphone</button>
+                <button type="button" class="btn btn-secondary">Watch</button>
+            </nav>
+    
+            <a class="navbar-brand apple-logo" href="https://www.apple.com/tw/">
+                <img src="https://www.apple.com/ac/globalnav/7/zh_TW/images/be15095f-5a20-57d0-ad14-cf4c638e223a/globalnav_apple_image__b5er5ngrzxqq_large.svg"
+                    alt="apple-logo">
+            </a>
+
+            <a href="https://www.apple.com/tw/shop/bag">
+                <img src="https://www.apple.com/ac/globalnav/7/zh_TW/images/be15095f-5a20-57d0-ad14-cf4c638e223a/globalnav_bag_image__yzte50i47ciu_large.svg" alt="">
+            </a>
+        </nav>
+    </header>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="reset.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="wrap">
+        <header>
+            <div class="btn-group d-flex justify-content-center" role="group"
+                aria-label="Basic radio toggle button group">
+                
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+                <label class="btn startbtn btn-outline-primary" for="btnradio1">開始</label>
+
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                <lable disabled="disabled" class="btn restartbtn btn-outline-primary" for="btnradio2">放棄重來</lable>
+
+                <input type="radio" class="btn-check showanswer" name="btnradio" id="btnradio3"
+                    autocomplete="off">
+                <label disabled="disabled" class="btn btn-outline-primary" for="btnradio3">看答案</label>
+            </div>
+        </header>
+
+        <function class="tips">
+            <iput type="text">
+                <p>幾a幾b</p>
+            </iput>
+        </function>
+
+        <footer>
+            <div class="input-group mb-3">
+                <input disabled="disabled" type="text" class="form-control guesstext" placeholder="請輸入4個數字"
+                    aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button disabled="disabled" class="btn guessbtn btn-outline-secondary" type="button" id="button-addon2">猜</button>
+            </div>
+        </footer>
+
+        <div id="answer"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="Script.js"></script>
+</body>
+
+</html>
