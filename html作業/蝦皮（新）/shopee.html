@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="reset.css">
+    <style>
+        html {
+            font-family: sans-serif;
+        }
+
+        .container {
+            width: 1200px;
+            margin: auto;
+        }
+
+        .nav,
+        .left,
+        .left ul,
+        .main-group,
+        .main-group ul {
+            display: flex;
+        }
+
+        .nav {
+            border-bottom: 1px solid rgba(0, 0, 0, .05);
+            line-height: 50px;
+        }
+
+        .left ul li {
+            display: block;
+            font-weight: 400;
+            color: #333;
+            margin: 0 10px;
+        }
+
+        .left,
+        .right {
+            width: 50%;
+        }
+
+        .left ul {
+            text-transform: capitalize;
+            height: 15px;
+            border-left: 1px solid #d8d8d8;
+            margin-left: 15px;
+            padding-left: 15px;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .left h2 {
+            color: #d0011b;
+            font-weight: 500;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .left img {
+            height: 1.0625rem;
+            width: 1.0625rem;
+            vertical-align: middle;
+            position: relative;
+            margin-right: 6px;
+        }
+
+        .right a {
+            text-decoration: none;
+            color: #d0011b;
+            margin-right: 15px;
+        }
+
+        .right a::after {
+            content: '>';
+            color: aliceblue;
+            font-size: .625rem;
+            background-color: #d0011b;
+            border-radius: 50%;
+            margin: auto;
+            text-align: center;
+            padding: 1px 5px;
+        }
+
+        .main-group .left-banner {
+            width: 400px;
+            height: 100%;
+        }
+
+        .main-group .left-banner a {
+            display: block;
+        }
+
+        .main-group .left-banner img {
+            width: 100%;
+            vertical-align: bottom;
+        }
+
+        .main-group .right-list-group {
+            width: 800px;
+        }
+
+        .main-group .right-list-group ul {
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .main-group .right-list-group ul li {
+            width: 180px;
+            display: block;
+            text-align: center;
+            margin: 10px;
+        }
+
+        .main-group .right-list-group ul li img {
+            width: 100%;
+            vertical-align: top;
+        }
+
+        .main-group .right-list-group ul li h3 {
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+
+        .main-group .right-list-group ul li p {
+            color: #d0011b;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="nav">
+            <div class="left">
+                <h2>蝦皮商城</h2>
+                <ul>
+                    <li>
+                        <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/homepage/6c502a2641457578b0d5f5153b53dd5d.png"
+                            alt="15days-icon">
+                        15天鑑賞期
+                    </li>
+                    <li>
+                        <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/homepage/16ead7e0a68c3cff9f32910e4be08122.png"
+                            alt="return-icon">
+                        蝦皮安心退
+                    </li>
+                    <li>
+                        <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/homepage/511aca04cc3ba9234ab0e4fcf20768a2.png"
+                            alt="promis-icon">
+                        正品保障
+                    </li>
+                </ul>
+            </div>
+
+            <div class="right">
+                <a href="#">
+                    查看全部
+                </a>
+            </div>
+        </div>
+        <div class="main-group">
+            <div class="left-banner">
+                <a href="https://shopee.tw/m/notorious220702">
+                    <img src="https://cf.shopee.tw/file/412088394aabab87a3116190ee174430" alt="banner">
+                </a>
+            </div>
+            <div class="right-list-group">
+                <ul>
+                    <li>
+                        <a href="https://shopee.tw/lg_bestshop">
+                            <img src="https://cf.shopee.tw/file/468776bc41105246ec99eb57c753db89_xhdpi" alt="LG TV">
+                        </a>
+                        <h3>LG</h3>
+                        <p>下單抽OLED電視</p>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="https://cf.shopee.tw/file/23e088acb72586722881cf3674cb7474_xhdpi" alt="mi">
+                        </a>
+                        <h3>小米</h3>
+                        <p>手環7新品上市</p>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="https://cf.shopee.tw/file/dd116a715211882fee9abef1967a696b_xhdpi" alt="sony">
+                        </a>
+                        <h3>sony</h3>
+                        <p>豪享10%蝦幣回饋</p>
+                    </li>
+                    <li>
+                        <a href="https://shopee.tw/natgeomediatw">
+                            <img src="https://cf.shopee.tw/file/379719824237ce73226a4bdf8bf004cc_xhdpi" alt="國家地理">
+                        </a>
+                        <h3>國家地理</h3>
+                        <p>國際書展領券85折</p>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="https://cf.shopee.tw/file/8b2fedfd862fe28212dad8e795aca35e_xhdpi" alt="輝葉">
+                        </a>
+                        <h3>輝葉</h3>
+                        <p>關注領卷送蝦幣</p>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="https://cf.shopee.tw/file/aa905e081da599bf1213806ec1d14bf4_xhdpi" alt="google">
+                        </a>
+                        <h3>google</h3>
+                        <p>Pixel 6限時下殺</p>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="https://cf.shopee.tw/file/dec045f08d8e6f2757ac8157bd3fe574_xhdpi" alt="acer">
+                        </a>
+                        <h3>acer</h3>
+                        <p>破盤狂省$7,500</p>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="https://cf.shopee.tw/file/90d5e029f1709aee19cb7339c7b8a8fe_xhdpi" alt="">
+                        </a>
+                        <h3>迎鶴珠寶</h3>
+                        <p>黃金最高折$1,800</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
