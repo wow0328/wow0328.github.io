@@ -11,7 +11,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Fascinate&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a78cf262ec.js" crossorigin="anonymous"></script>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 
     <style>
         body {
@@ -36,7 +42,7 @@
             padding: 10px;
         }
 
-        .year{
+        .year {
             font-size: 25px;
         }
 
@@ -55,6 +61,7 @@
 
         .month-picker {
             cursor: pointer;
+            font-size: 30px;
         }
 
         .week {
@@ -92,39 +99,69 @@
         }
 
 
-        .days div:hover span{
+        .days .calender-day:hover span {
             width: 50px;
             height: 50px;
         }
 
-        .days div:hover{
+        .days .calender-day:hover {
             font-size: 35px;
             color: #75a285;
         }
 
-        .days div .todo-item{
-            width: 100px;
-            height: 100px;
-            background-color: #fa0;
+        .days .calender-day .todo-item {
+            width: 300px;
+            background-color: #75a285;
             position: absolute;
             display: none;
         }
-        .days div:hover .todo-item{
+
+        .days .calender-day:hover .todo-item {
             display: block;
             top: 0;
             left: 50px;
             z-index: 10;
+            color: azure;
+            font-size: 25px;
         }
 
-        .days div.curr-date{
+        .days div.curr-date {
             background-color: aliceblue;
         }
-        .days div.curr-date:hover{
+
+        .days div.curr-date:hover {
             background-color: #D3DAC9;
             border-radius: 50%;
         }
 
-       
+        .month_list {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            font-size: 25px;
+            text-align: center;
+            background-color: aliceblue;
+            padding: 20px;
+            visibility: hidden;
+            cursor: pointer;
+        }
+
+        .month_list.show {
+            transform: scale(1);
+            visibility: visible;
+            transition: all 0.2 ease-in-out;
+        }
+
+        .btn-group,
+        .createbtn {
+            background-color: #75a285;
+            border: #75a285;
+        }
+
+        .btn-group button {
+            color: aliceblue;
+        }
     </style>
 </head>
 
@@ -158,10 +195,114 @@
                 <div>Sat</div>
             </div>
             <!-- 日 -->
-            <div class="days"></div>
+            <div class="days">
+
+            </div>
+            <!-- <div class='todo-item'></div> -->
         </div>
         <div class="month_list"></div>
     </div>
+
+    <!-- 新增行程 -->
+    <div id="add-event" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input id="add-date" type="text">
+                    <input id="add-value" type="text">
+
+                    <div class="btn-group my-3">
+                        <button type="button" class="btn btn-outline-secondary">Actives</button>
+                        <button type="button" class="btn btn-outline-secondary">Tasks</button>
+                        <button type="button" class="btn btn-outline-secondary">Alert</button>
+                    </div>
+                    <br>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupSelect02"><i
+                                class="fa-solid fa-user-group"></i></label>
+                        <select class="form-select" id="inputGroupSelect02">
+                            <option selected>Choose Invite Person </option>
+                            <option value="1">Mandy</option>
+                            <option value="2">John</option>
+                            <option value="3">David</option>
+                            <option value="4">Cindy</option>
+                        </select>
+
+
+                    </div>
+                    <div class="location input-group flex-nowrap">
+                        <span class="input-group-text" id="addon-wrapping">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </span>
+                        <input type="text" class="form-control location_text" placeholder="Location"
+                            aria-label="Username" aria-describedby="addon-wrapping">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary createbtn" onclick="addTodoItem()">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 編輯行程 -->
+    <div id="edit-event" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input id="edit-date" type="text">
+                    <input id="edit-value" type="text">
+
+                    <div class="btn-group my-3">
+                        <button type="button" class="btn btn-outline-secondary">Actives</button>
+                        <button type="button" class="btn btn-outline-secondary">Tasks</button>
+                        <button type="button" class="btn btn-outline-secondary">Alert</button>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupSelect02"><i
+                                class="fa-solid fa-user-group"></i></label>
+                        <select class="form-select" id="inputGroupSelect02">
+                            <option selected>Choose Invite Person </option>
+                            <option value="1">Mandy</option>
+                            <option value="2">John</option>
+                            <option value="3">David</option>
+                            <option value="4">Cindy</option>
+                        </select>
+
+
+
+                    </div>
+
+                    <div class="location input-group flex-nowrap">
+                        <span class="input-group-text" id="addon-wrapping"><i
+                                class="fa-solid fa-location-dot"></i></span>
+                        <input type="text" class="form-control location_text" placeholder="Location"
+                            aria-label="Username" aria-describedby="addon-wrapping">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="editTodoItem()">Edit</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteTodoItem()">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </body>
 
 <script>
@@ -169,8 +310,20 @@
     let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     let calender_header_year
     let days
+    let currentIndex  //存現在的值
     let calender = document.querySelector('.calender')
     let month_list = document.querySelector('.month_list')
+    let todoItem = document.querySelector('.todo-item')
+
+
+    const addModal = document.querySelector('#add-event')
+    const editModal = document.querySelector('#edit-event')
+
+    const addDateInput = document.querySelector('#add-date')
+    const addValueInput = document.querySelector('#add-value')
+
+    const editDateInput = document.querySelector('#edit-date')
+    const editValueInput = document.querySelector('#edit-value')
 
 
 
@@ -186,31 +339,27 @@
     }
 
 
-    
+
     //產生年月
-    function generateCalender  (month, year)  {
+    function generateCalender(month, year) {
 
         days = document.querySelector('.days')
         calender_header_year = document.querySelector('.year')
 
         //把每個月份的天數列出來
-        let days_of_month = [31, getFebDays(year), 31, 30, 31, 30, 31, 30, 31, 31, 30, 31]
+        let days_of_month = [31, getFebDays(year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
         days.innerHTML = ''
 
         //抓現在的日期
         let currDate = new Date()
 
-        //讓currDate去抓每一月和每一年
-        if (!month) month = currDate.getMonth()
-        if (!year) year = currDate.getFullYear()
 
         //帶入上面的月份
         let currMonth = `${months[month]}`
-
         //把月份帶入HTML
         month_picker.innerHTML = currMonth
-        calender_header_year.innerHTML=year
+        calender_header_year.innerHTML = year
 
 
 
@@ -227,57 +376,173 @@
                 <span></span>
                 <span></span>`
 
-                if (tempDay === currDate.getDate() && year === currDate.getFullYear()) {
+                //判斷今天是哪一天
+                if (tempDay === currDate.getDate() && curr_month.value===currDate.getMonth()  && year === currDate.getFullYear()) {
                     day.classList.add('curr-date')
-                    //TODO-modal
-                    day.innerHTML += `<div class='todo-item'></div>`
+                }
+
+                //判斷行事曆裡面是否有值
+                if (localStorage.getItem(`${year}-${month+1}-${tempDay}`) != null) {
+                   // console.log(localStorage.getItem(`${year}-${month+1}-${tempDay}`));
+
+                    let todoItem = document.createElement('div')
+                    todoItem.classList.add('todo-item')
+
+                    let ul = document.createElement('ul')
+
+                    let todoList = JSON.parse(localStorage.getItem(`${year}-${month+1}-${tempDay}`))
+
+                    todoList.forEach((item, index) => {
+                        let li = document.createElement('li')
+                        li.innerText = item.title
+                        li.addEventListener('click', function (event) {
+                            //console.log(editModal);
+                            bootstrap.Modal.getOrCreateInstance(editModal).show()
+                            currentIndex = index
+
+                            //填充edit的內容
+                            editDateInput.value = `${year}-${month +1}-${tempDay}`
+                            editValueInput.value = item.title
+
+                            event.stopPropagation()
+
+                        })
+
+
+                        ul.appendChild(li)
+                    })
+                    if (todoList.length !== 0) {
+                        todoItem.appendChild(ul)
+                        day.appendChild(todoItem)
+                    }
+
                 }
             }
+
+            day.addEventListener('click', function (event) {
+                bootstrap.Modal.getOrCreateInstance(addModal).show()
+                addDateInput.value = `${year}-${month + 1}-${tempDay}`
+
+            })
             days.appendChild(day)
         }
+
+
+
+    }
+
+    //秀出每一個月份
+    months.forEach((mth, index) => {
+
+        let month = document.createElement('div')
+        month.innerHTML = `<div data-month='${index}'>${mth}</div>`
+
+
+        month.querySelector('div').onclick = () => {
+            month_list.classList.remove('show')
+            currMonth = index
+            //console.log(currMonth)
+
+            generateCalender(index, curr_year.value)
+        }
+        month_list.appendChild(month)
+    })
+
+    //按下月份的按鈕會顯示各個月份
+    let month_picker = document.querySelector('#month-picker')
+
+    month_picker.onclick = () => {
+        month_list.classList.add('show')
     }
 
 
-        //秀出每一個月份
-        months.forEach((mth, index) => {
+    let currDate = new Date()
 
-            let month = document.createElement('div')
-            month.innerHTML = `<div data-month='${index}'>${mth}</div>`
+    let curr_month = { value: currDate.getMonth() }
+    let curr_year = { value: currDate.getFullYear() }
+    generateCalender(curr_month.value, curr_year.value)
 
-            month.querySelector('div').onclick = () => {
-                month_list.classList.remove('show')
-                currMonth.value = index
 
-                generateCalender(index, curr_year.value)
-            }
-            month_list.appendChild(month)
-        })
+    document.querySelector('#pre-year').onclick = () => {
+        console.log(curr_month.value);
+        --curr_month.value
+        console.log(curr_month.value);
+        if (curr_month.value == -1) {
+            curr_month.value = 11
+            curr_year.value--
+        }
+        generateCalender(curr_month.value, curr_year.value)
+    }
 
-        //按下月份的按鈕會顯示各個月份
-        let month_picker = document.querySelector('#month-picker')
+    document.querySelector('#nxt-year').onclick = () => {
 
-        month_picker.onclick = () => {
-            month_list.classList.add('show')
+        ++curr_month.value
+        if (curr_month.value == 12) {
+            curr_month.value = 0
+            curr_year.value++
+        }
+        generateCalender(curr_month.value, curr_year.value)
+    }
+
+    function addTodoItem() {
+        let date = addDateInput.value
+        //console.log(date);
+        let todoItem = addValueInput.value
+
+        let todoObj = {
+            title: todoItem
+
         }
 
+        let todoList = []
+        if (localStorage.getItem(date) == null) {
+            todoList.push(todoObj)
+        } else {
+            todoList = JSON.parse(localStorage.getItem(date))
+            todoList.push(todoObj)
+        }
 
-        let currDate = new Date()
+        localStorage.setItem(date, JSON.stringify(todoList))
+        addValueInput.value = ''
+        bootstrap.Modal.getOrCreateInstance(addModal).hide()
+        generateCalender(curr_month.value, curr_year.value)
+    }
 
-        let curr_month = { value: currDate.getMonth() }
-        let curr_year = { value: currDate.getFullYear() }
+
+    function editTodoItem() {
+        let date = editDateInput.value
+        let todoItem = editValueInput.value
+        //console.log(date);
+
+        todoList = JSON.parse(localStorage.getItem(date))
+        //console.log(todoList);
+        //console.log(currentIndex);
+        todoList[currentIndex] = { title: todoItem }
+
+
+        localStorage.setItem(date, JSON.stringify(todoList))
+
+        bootstrap.Modal.getOrCreateInstance(editModal).hide()
+        generateCalender(curr_month.value, curr_year.value)
+
+    }
+
+
+
+    function deleteTodoItem() {
+        let date = editDateInput.value
+
+        let todoList = JSON.parse(localStorage.getItem(date))
+        todoList.splice(currentIndex, 1)
+
+        //刪除之後
+        localStorage.setItem(date, JSON.stringify(todoList))
+
+        bootstrap.Modal.getOrCreateInstance(editModal).hide()
         generateCalender(curr_month.value, curr_year.value)
 
 
-        document.querySelector('#pre-year').onclick = () => {
-            --curr_year.value
-            generateCalender(curr_month.value, curr_year.value)
-        }
-
-        document.querySelector('#nxt-year').onclick = () => {
-            ++curr_year.value
-            generateCalender(curr_month.value, curr_year.value)
-        }
-
+    }
 </script>
 
 </html>
