@@ -92,12 +92,12 @@ function checkAns(){
 //顯示結果
 function showResult(div, span, A){
 answerGroup=document.createElement('div')
-answerGroup.classList.add('answerGroup','border-button','margin:auto')
+answerGroup.classList.add('answerGroup','style="margin:auto";"border-button"','d-flex')
 
 
 notice=document.createElement('div')
-showGuessNum=document.createElement('span')
-showGuessNum.classList.add('showGuessNum','display:inline')
+showGuessNum=document.createElement('span','mt-2')
+showGuessNum.classList.add('showGuessNum','display:inline','mt-2')
 
 notice.innerText= div
 showGuessNum.innerText= span
@@ -107,11 +107,11 @@ answerGroup.append(showGuessNum)
 showAnswer.append(answerGroup)
 
 if(A===4){
-    notice.classList.add('notice','bg-success','rounded','mx-2','mt-28')
+    notice.classList.add('notice','bg-success','rounded','mx-2','mt-28','mb-3')
     alert('恭喜答對')
     return
 }else{
-    notice.classList.add('notice','bg-danger','rounded','mx-2')
+    notice.classList.add('notice','bg-danger','rounded','mx-2','mb-3')
 }
 
 
